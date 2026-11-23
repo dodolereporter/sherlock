@@ -28,6 +28,10 @@ Autres commandes :
 | `npm run check` | Contrôle fonctionnel Playwright : clavier, persistance après rechargement, repli sans WebGL (après `npm run preview`) |
 | `npm run captures` | Captures de contrôle Playwright dans `captures/` (lancer `npm run preview` avant). `-- --extra` ajoute une capture par type de surprise |
 
+## Publication
+
+Le workflow `.github/workflows/pages.yml` construit `calendrier/` (lint puis build) et publie `dist/` sur GitHub Pages à chaque push sur `main` qui touche `calendrier/`, ou à la demande depuis l'onglet Actions. Il faut une fois pour toutes régler le dépôt : Settings → Pages → Source : « GitHub Actions ». Le build utilise des chemins relatifs : le site fonctionne sous `https://<compte>.github.io/<dépôt>/`.
+
 ## Paramètres d'URL
 
 | Paramètre | Effet |
