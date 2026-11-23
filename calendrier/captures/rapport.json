@@ -1,0 +1,53 @@
+{
+  "stats": {
+    "1440-principale": {
+      "fps": 12,
+      "calls": 85,
+      "triangles": 225753,
+      "points": 6100,
+      "geometries": 58,
+      "textures": 29
+    },
+    "1440-ouverte": {
+      "fps": 10,
+      "calls": 90,
+      "triangles": 232477,
+      "points": 6100,
+      "geometries": 61,
+      "textures": 30
+    },
+    "1440-final": {
+      "fps": 11,
+      "calls": 87,
+      "triangles": 225911,
+      "points": 6100,
+      "geometries": 60,
+      "textures": 29
+    },
+    "390-principale": {
+      "fps": 12,
+      "calls": 85,
+      "triangles": 225753,
+      "points": 6100,
+      "geometries": 58,
+      "textures": 29
+    },
+    "390-ouverte": {
+      "fps": 10,
+      "calls": 85,
+      "triangles": 232373,
+      "points": 6100,
+      "geometries": 61,
+      "textures": 30
+    },
+    "390-final": {
+      "fps": 11,
+      "calls": 87,
+      "triangles": 225911,
+      "points": 6100,
+      "geometries": 60,
+      "textures": 29
+    }
+  },
+  "console": []
+}

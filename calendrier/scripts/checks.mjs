@@ -1,0 +1,40 @@
+// Contrôle fonctionnel : clavier, persistance, repli sans WebGL. Lancer `npm run preview` avant.
+import { chromium } from 'playwright';
+const out = [];
+const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const ctx = await browser.newContext({ viewport: { width: 1000, height: 625 } });
+const page = await ctx.newPage();
+const errors = [];
+page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+await page.goto('http://localhost:4173/?date=2026-12-05&intro=0');
+await page.waitForSelector('.app--idle', { timeout: 120000 });
+await page.waitForTimeout(2000);
+// Clavier : Tab jusqu'à la case 3, Entrée.
+await page.keyboard.press('Tab');
+await page.keyboard.press('Tab');
+await page.keyboard.press('Tab');
+out.push('focus: ' + (await page.evaluate(() => document.activeElement?.getAttribute('aria-label'))));
+await page.keyboard.press('ArrowUp');
+out.push('après flèche haut: ' + (await page.evaluate(() => document.activeElement?.getAttribute('aria-label'))));
+await page.keyboard.press('ArrowDown');
+await page.keyboard.press('Enter');
+await page.waitForSelector('.app--open', { timeout: 30000 });
+out.push('ouverte: ' + (await page.locator('.card__numeral').textContent()));
+await page.keyboard.press('Escape');
+await page.waitForSelector('.app--idle', { timeout: 30000 });
+out.push('focus rendu: ' + (await page.evaluate(() => document.activeElement?.getAttribute('aria-label'))));
+out.push('stockage: ' + (await page.evaluate(() => localStorage.getItem('sherlock-avent-2026:essai'))));
+await page.reload();
+await page.waitForSelector('.app--idle', { timeout: 120000 });
+out.push('après rechargement: ' + (await page.locator('.progress__count').textContent()));
+out.push('erreurs: ' + errors.length);
+await browser.close();
+// Sans WebGL.
+const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-webgl2'] });
+const p2 = await b2.newPage();
+await p2.goto('http://localhost:4173/');
+await p2.waitForTimeout(1500);
+out.push('sans WebGL: ' + (await p2.locator('.nowebgl h1').textContent()));
+await p2.screenshot({ path: new URL('../captures/sans-webgl.png', import.meta.url).pathname });
+await b2.close();
+console.log(out.join('\n'));
