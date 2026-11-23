@@ -1,0 +1,5 @@
+dist
+captures
+node_modules
+public
+*.md
